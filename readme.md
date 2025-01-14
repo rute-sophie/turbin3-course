@@ -15,3 +15,6 @@ https://explorer.solana.com/tx/2K2jZd5Nbr7ypw1dXeruCjPRQksDTmgLnriTwPCRq1sMN3A5c
 
 **Calling the complete instruction with the github handle:**
 https://explorer.solana.com/tx/3J5qhU1BVreeMUgdua4dLYBB9rnYb6SujbSCokzKgWvva3Phvyx1fYbVZS3NjY23X7AdWgiSeRffCjfEfN1EeS8W?cluster=devnet
+
+**New Program Address task:**
+https://explorer.solana.com/tx/4WR5Vz7xoeBj8tYVHsp8cGdrRaS1XuFYjperFpPy7vWzYwg7Rn2amymMZytXeKPuEq4Fh93MdhKibNN5CDG2tDVX?cluster=devnet
