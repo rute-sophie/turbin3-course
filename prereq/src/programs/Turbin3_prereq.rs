@@ -9,6 +9,16 @@ idlgen!({
     "instructions": [
       {
         "name": "complete",
+        "discriminator": [
+            0,
+            77,
+            224,
+            147,
+            136,
+            25,
+            88,
+            76
+        ],
         "accounts": [
           {
             "name": "signer",
@@ -35,6 +45,16 @@ idlgen!({
       },
       {
         "name": "update",
+        "discriminator": [
+            219,
+            200,
+            88,
+            176,
+            158,
+            63,
+            253,
+            127
+        ],
         "accounts": [
           {
             "name": "signer",
