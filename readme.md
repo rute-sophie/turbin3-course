@@ -4,7 +4,11 @@ This repository has all the work assignments and prereqs done for Turbin3 Builde
 
 ## 📚 Class work
 
-These are my code exercises from classes: [repo](https://github.com/rute-sophie/solana-starter)
+These are my code exercises:
+
+- 1st, 2nd, 3rd classes: [repo](https://github.com/rute-sophie/solana-starter)
+- 4th class: [Vault](rust/vault/)
+- 5th and 6th class: escrow
 
 ## 👩‍💻 Prereq
 
