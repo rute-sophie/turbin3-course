@@ -2,6 +2,10 @@
 
 This repository has all the work assignments and prereqs done for Turbin3 Builders Q1 2025 Cohort
 
+## 💼 Capstone Project
+
+My capstone project, BloodLedger is [here](https://github.com/rute-sophie/BloodLedger).
+
 ## 📚 Class work
 
 These are my code exercises:

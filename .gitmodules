@@ -1,3 +1,6 @@
 [submodule "solana-starter"]
 	path = solana-starter
 	url = https://github.com/rute-sophie/solana-starter.git
+[submodule "BloodLedger"]
+	path = BloodLedger
+	url = git@github.com:rute-sophie/BloodLedger.git
