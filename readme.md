@@ -9,6 +9,7 @@ These are my code exercises:
 - 1st, 2nd, 3rd classes: [repo](https://github.com/rute-sophie/solana-starter)
 - 4th class: [vault](rust/vault/)
 - 5th and 6th class: [escrow](rust/escrow)
+- 7th class: [marketplace](rust/marketplace)
 
 ## 👩‍💻 Prereq
 
