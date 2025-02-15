@@ -1,5 +1,14 @@
-use anchor_lang::{prelude::*, system_program::{transfer, Transfer}};
-use anchor_spl::{associated_token::AssociatedToken, token_interface::{Mint, TokenAccount, TokenInterface, transfer_checked, TransferChecked, CloseAccount, close_account}};
+use anchor_lang::{
+    prelude::*,
+    system_program::{transfer, Transfer},
+};
+use anchor_spl::{
+    associated_token::AssociatedToken,
+    token_interface::{
+        close_account, transfer_checked, CloseAccount, Mint, TokenAccount, TokenInterface,
+        TransferChecked,
+    },
+};
 
 use crate::state::{Listing, Marketplace};
 
@@ -11,7 +20,7 @@ pub struct Purchase<'info> {
     pub maker: SystemAccount<'info>,
     pub maker_mint: InterfaceAccount<'info, Mint>,
     #[account(
-        seeds = [b"marketplace", marketplace.name.as_str().as_bytes()],
+        seeds = [b"marketplace", marketplace.name.as_bytes()],
         bump = marketplace.bump,
     )]
     pub marketplace: Account<'info, Marketplace>,
@@ -56,7 +65,7 @@ pub struct Purchase<'info> {
 impl<'info> Purchase<'info> {
     pub fn send_sol(&self) -> Result<()> {
         let cpi_program = self.system_program.to_account_info();
-        
+
         let cpi_accounts = Transfer {
             from: self.taker.to_account_info(),
             to: self.maker.to_account_info(),
@@ -64,8 +73,11 @@ impl<'info> Purchase<'info> {
 
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
 
-        let amount = self.listing.price
-            .checked_sub(self.marketplace.fee as u64).unwrap();
+        let amount = self
+            .listing
+            .price
+            .checked_sub(self.marketplace.fee as u64)
+            .unwrap();
 
         transfer(cpi_ctx, self.listing.price - amount)?;
 
@@ -94,7 +106,7 @@ impl<'info> Purchase<'info> {
         );
 
         transfer_checked(cpi_ctx, 1, self.maker_mint.decimals)?;
-        
+
         Ok(())
     }
 
@@ -115,7 +127,7 @@ impl<'info> Purchase<'info> {
         let cpi_ctx = CpiContext::new_with_signer(
             self.token_program.to_account_info(),
             accounts,
-            signer_seeds
+            signer_seeds,
         );
 
         close_account(cpi_ctx)

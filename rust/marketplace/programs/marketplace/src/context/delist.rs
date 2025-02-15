@@ -1,13 +1,15 @@
-use anchor_lang::prelude::*;
-use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface, TransferChecked, transfer_checked};
 use crate::state::{Listing, Marketplace};
+use anchor_lang::prelude::*;
+use anchor_spl::token_interface::{
+    transfer_checked, Mint, TokenAccount, TokenInterface, TransferChecked,
+};
 
 #[derive(Accounts)]
 pub struct Delist<'info> {
     #[account(mut)]
     maker: Signer<'info>,
     #[account(
-        seeds = [b"marketplace", marketplace.name.as_str().as_bytes()],
+        seeds = [b"marketplace", marketplace.name.as_bytes()],
         bump = marketplace.bump,
     )]
     marketplace: Account<'info, Marketplace>,

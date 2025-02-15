@@ -3,8 +3,8 @@ use anchor_lang::prelude::*;
 declare_id!("HsGagk4VxZEFe5FQN7G9FjjfCX28bTiBasyuBcBL8r6F");
 
 pub mod context;
-pub mod state;
 pub mod errors;
+pub mod state;
 
 pub use context::*;
 pub use errors::*;
@@ -41,4 +41,3 @@ pub mod marketplace {
         Ok(())
     }
 }
-

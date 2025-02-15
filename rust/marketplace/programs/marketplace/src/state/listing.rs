@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-/* 
+/*
 u8  = 1
 u16 = 2
 u32 = 4

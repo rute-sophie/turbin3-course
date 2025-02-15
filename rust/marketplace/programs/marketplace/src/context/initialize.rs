@@ -13,7 +13,7 @@ pub struct Initialize<'info> {
     #[account(
         init,
         payer = admin,
-        seeds = [b"marketplace", name.as_str().as_bytes()],
+        seeds = [b"marketplace", name.as_bytes()],
         bump,
         space = Marketplace::INIT_SPACE
     )]
@@ -41,8 +41,10 @@ pub struct Initialize<'info> {
 
 impl<'info> Initialize<'info> {
     pub fn initialize(&mut self, name: String, fee: u16, bumps: &InitializeBumps) -> Result<()> {
-
-        require!(name.len() > 0 && name.len() < 4 + 32, MarketplaceError::NameTooLong);
+        require!(
+            !name.is_empty() && name.len() < 4 + 32,
+            MarketplaceError::NameTooLong
+        );
         self.marketplace.set_inner(Marketplace {
             admin: self.admin.key(),
             fee,

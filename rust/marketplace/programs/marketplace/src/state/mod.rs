@@ -1,5 +1,5 @@
-pub mod marketplace;
 pub mod listing;
+pub mod marketplace;
 
-pub use marketplace::*;
 pub use listing::*;
+pub use marketplace::*;
