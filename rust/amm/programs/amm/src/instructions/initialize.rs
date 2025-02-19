@@ -1,13 +1,14 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{associated_token::AssociatedToken, token::{Mint, Token, TokenAccount}};
+use anchor_spl::{
+    associated_token::AssociatedToken,
+    token::{Mint, Token, TokenAccount},
+};
 
 use crate::state::Config;
 
-
-
 #[derive(Accounts)]
 #[instruction(seed: u64)]
-pub struct Initialize <'info> {
+pub struct Initialize<'info> {
     #[account(mut)]
     pub initializer: Signer<'info>,
     pub mint_x: Account<'info, Mint>,
@@ -49,7 +50,13 @@ pub struct Initialize <'info> {
 }
 
 impl<'info> Initialize<'info> {
-    pub fn init(&mut self, seed: u64, fee: u16, authority: Option<Pubkey>, bumps: InitializeBumps) -> Result<()> {
+    pub fn init(
+        &mut self,
+        seed: u64,
+        fee: u16,
+        authority: Option<Pubkey>,
+        bumps: InitializeBumps,
+    ) -> Result<()> {
         self.config.set_inner(Config {
             seed,
             authority,

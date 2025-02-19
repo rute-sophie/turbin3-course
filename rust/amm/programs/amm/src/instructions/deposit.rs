@@ -1,5 +1,8 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{associated_token::AssociatedToken, token::{Transfer, transfer, Mint, Token, TokenAccount, MintTo, mint_to}};
+use anchor_spl::{
+    associated_token::AssociatedToken,
+    token::{mint_to, transfer, Mint, MintTo, Token, TokenAccount, Transfer},
+};
 use constant_product_curve::ConstantProduct;
 
 use crate::{errors::AmmError, state::Config};
@@ -60,26 +63,30 @@ pub struct Deposit<'info> {
 }
 
 impl<'info> Deposit<'info> {
-    pub fn deposit (
+    pub fn deposit(
         &mut self,
         amount: u64, // Amount of LP tokens that the user wants to "claim"
-        max_x: u64, // Maximum amount of token X that the user is willing to deposit
-        max_y: u64, // Maximum amount of token Y that the user is willing to deposit
+        max_x: u64,  // Maximum amount of token X that the user is willing to deposit
+        max_y: u64,  // Maximum amount of token Y that the user is willing to deposit
     ) -> Result<()> {
         require!(self.config.locked == false, AmmError::PoolLocked);
         require!(amount != 0, AmmError::InvalidAmount);
 
-        let (x, y) = match self.mint_lp.supply == 0 && self.vault_x.amount == 0 && self.vault_y.amount == 0 {
+        let (x, y) = match self.mint_lp.supply == 0
+            && self.vault_x.amount == 0
+            && self.vault_y.amount == 0
+        {
             true => (max_x, max_y),
             false => {
                 let amounts = ConstantProduct::xy_deposit_amounts_from_l(
-                    self.vault_x.amount, 
-                    self.vault_y.amount, 
-                    self.mint_lp.supply, 
-                    amount, 
-                6
-            ).unwrap();
-            (amounts.x, amounts.y)
+                    self.vault_x.amount,
+                    self.vault_y.amount,
+                    self.mint_lp.supply,
+                    amount,
+                    6,
+                )
+                .unwrap();
+                (amounts.x, amounts.y)
             }
         };
 
@@ -95,8 +102,14 @@ impl<'info> Deposit<'info> {
 
     pub fn deposit_tokens(&self, is_x: bool, amount: u64) -> Result<()> {
         let (from, to) = match is_x {
-            true => (self.user_x.to_account_info(), self.vault_x.to_account_info()),
-            false => (self.user_y.to_account_info(), self.vault_y.to_account_info()),
+            true => (
+                self.user_x.to_account_info(),
+                self.vault_x.to_account_info(),
+            ),
+            false => (
+                self.user_y.to_account_info(),
+                self.vault_y.to_account_info(),
+            ),
         };
 
         let cpi_program = self.token_program.to_account_info();

@@ -2,14 +2,14 @@ use anchor_lang::prelude::*;
 
 #[account]
 pub struct Config {
-    pub seed: u64, 
-    pub authority: Option<Pubkey>, 
+    pub seed: u64,
+    pub authority: Option<Pubkey>,
     pub mint_x: Pubkey,
-    pub mint_y: Pubkey, 
-    pub fee: u16, // swap fee 
-    pub locked: bool, // flag if the pool is locked
+    pub mint_y: Pubkey,
+    pub fee: u16,        // swap fee
+    pub locked: bool,    // flag if the pool is locked
     pub config_bump: u8, // bump seed for the config account
-    pub lp_bump: u8, // bump seed for the LP token
+    pub lp_bump: u8,     // bump seed for the LP token
 }
 
 impl Space for Config {

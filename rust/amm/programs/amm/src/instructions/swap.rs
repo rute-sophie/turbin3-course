@@ -1,5 +1,8 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{associated_token::AssociatedToken, token::{Mint, Token, TokenAccount, Transfer, transfer}};
+use anchor_spl::{
+    associated_token::AssociatedToken,
+    token::{transfer, Mint, Token, TokenAccount, Transfer},
+};
 use constant_product_curve::{ConstantProduct, LiquidityPair};
 
 use crate::{errors::AmmError, state::Config};
@@ -55,9 +58,9 @@ impl<'info> Swap<'info> {
 
         let mut curve = ConstantProduct::init(
             self.vault_x.amount,
-             self.vault_y.amount, 
-             self.vault_x.amount, 
-             self.config.fee,
+            self.vault_y.amount,
+            self.vault_x.amount,
+            self.config.fee,
             None,
         )
         .map_err(AmmError::from)?;
@@ -83,8 +86,14 @@ impl<'info> Swap<'info> {
 
     pub fn deposit_tokens(&mut self, is_x: bool, amount: u64) -> Result<()> {
         let (from, to) = match is_x {
-            true => (self.user_x.to_account_info() , self.vault_x.to_account_info()),
-            false => (self.user_y.to_account_info(), self.vault_y.to_account_info()),
+            true => (
+                self.user_x.to_account_info(),
+                self.vault_x.to_account_info(),
+            ),
+            false => (
+                self.user_y.to_account_info(),
+                self.vault_y.to_account_info(),
+            ),
         };
 
         let cpi_program = self.token_program.to_account_info();
@@ -104,8 +113,14 @@ impl<'info> Swap<'info> {
 
     pub fn withdraw_tokens(&mut self, is_x: bool, amount: u64) -> Result<()> {
         let (from, to) = match is_x {
-            true => (self.vault_y.to_account_info() , self.user_y.to_account_info()),
-            false => (self.vault_x.to_account_info(), self.user_x.to_account_info()),
+            true => (
+                self.vault_y.to_account_info(),
+                self.user_y.to_account_info(),
+            ),
+            false => (
+                self.vault_x.to_account_info(),
+                self.user_x.to_account_info(),
+            ),
         };
 
         let cpi_program = self.token_program.to_account_info();

@@ -1,5 +1,8 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{associated_token::AssociatedToken, token::{transfer, Burn, Mint, Token, TokenAccount, Transfer, burn}};
+use anchor_spl::{
+    associated_token::AssociatedToken,
+    token::{burn, transfer, Burn, Mint, Token, TokenAccount, Transfer},
+};
 use constant_product_curve::ConstantProduct;
 
 use crate::{errors::AmmError, state::Config};
@@ -72,27 +75,36 @@ impl<'info> Withdraw<'info> {
         require!(min_x != 0 || min_y != 0, AmmError::InvalidAmount);
 
         let amounts = ConstantProduct::xy_withdraw_amounts_from_l(
-            self.vault_x.amount, 
-            self.vault_y.amount, 
-            self.mint_lp.supply, 
-            amount, 
-        6,
+            self.vault_x.amount,
+            self.vault_y.amount,
+            self.mint_lp.supply,
+            amount,
+            6,
         )
         .map_err(AmmError::from)?;
 
-        require!(min_x <= amounts.x && min_y <= amounts.y, AmmError::SlippageExceeded);
+        require!(
+            min_x <= amounts.x && min_y <= amounts.y,
+            AmmError::SlippageExceeded
+        );
 
         self.withdraw_tokens(true, amounts.x)?;
         self.withdraw_tokens(false, amounts.y)?;
         self.burn_lp_tokens(amount)?;
-        
+
         Ok(())
     }
 
     pub fn withdraw_tokens(&self, is_x: bool, amount: u64) -> Result<()> {
         let (from, to) = match is_x {
-            true => (self.vault_x.to_account_info(), self.user_x.to_account_info()),
-            false => (self.vault_y.to_account_info(), self.user_y.to_account_info()),
+            true => (
+                self.vault_x.to_account_info(),
+                self.user_x.to_account_info(),
+            ),
+            false => (
+                self.vault_y.to_account_info(),
+                self.user_y.to_account_info(),
+            ),
         };
 
         let cpi_program = self.token_program.to_account_info();
@@ -113,7 +125,7 @@ impl<'info> Withdraw<'info> {
         let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer_seeds);
 
         transfer(cpi_ctx, amount)?;
-        
+
         Ok(())
     }
 
