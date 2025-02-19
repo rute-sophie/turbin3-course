@@ -16,7 +16,7 @@ These are my code exercises:
 - 7th class: [marketplace](rust/marketplace)
 - 8th Class: [staking](rust/nft-staking/)
 - 9th and 10th class: [amm](rust/amm)
-- 11th Class: [dice game](dice-game)
+- 11th Class: [dice game](rust/dice-game)
 
 ## 👩‍💻 Prereq
 
