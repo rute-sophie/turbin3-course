@@ -14,6 +14,7 @@ These are my code exercises:
 - 4th class: [vault](rust/vault/)
 - 5th and 6th class: [escrow](rust/escrow)
 - 7th class: [marketplace](rust/marketplace)
+- 8th Class: [staking](rust/nft-staking/)
 
 ## 👩‍💻 Prereq
 
