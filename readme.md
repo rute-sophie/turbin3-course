@@ -4,7 +4,8 @@ This repository has all the work assignments and prereqs done for Turbin3 Builde
 
 ## 💼 Capstone Project
 
-My capstone project, BloodLedger, is [here](https://github.com/rute-sophie/BloodLedger).
+My capstone project, BloodLedger, finished and deployed into [devnet](https://explorer.solana.com/address/b1oodxpcTKPaXCUd5nnmTb8q85vRMfNmDLsqcqvUwwF?cluster=devnet), is located in [this repo](https://github.com/rute-sophie/BloodLedger).
+
 
 ## 📚 Class work
 
